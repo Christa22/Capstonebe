@@ -1,11 +1,11 @@
 import Article from "../models/articleModel";
 import articleValidation from "../joiVallidation/ArticleValid";
 const createArticle = async(req, res) =>{
-    var {errors} = articleValidation(req.body);
+    var {error} = articleValidation(req.body);
 
-    if(errors){
-        console.log("errros");
-        return res.status(500).send({"message":errors.details[0].message});
+    console.log("errros", error);
+    if(error){
+        return res.status(500).send({"message":error.details[0].message});
     }
     try{
   

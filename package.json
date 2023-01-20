@@ -28,7 +28,9 @@
     "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.3",
-    "mongoose-type-url": "^2.1.0"
+    "mongoose-type-url": "^2.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
