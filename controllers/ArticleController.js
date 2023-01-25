@@ -1,5 +1,5 @@
 import Article from "../models/articleModel";
-import articleValidation from "../joiVallidation/ArticleValid";
+import articleValidation from "../joiVallidation/articleValid";
 const createArticle = async(req, res) =>{
     var {error} = articleValidation(req.body);
 
