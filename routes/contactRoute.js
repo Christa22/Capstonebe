@@ -7,7 +7,7 @@ import { createContact, getContacts, getsingleContact } from "../controllers/con
 const router = express.Router();
 router.use(bodyParser.json());
 
-/**
+ /**
  * @swagger
  * components:
  *   schemas:
@@ -23,7 +23,7 @@ router.use(bodyParser.json());
  *            description: It is auto genereted    
  *          Message:
  *            type: string
- *            description: This is holds the one who is commenting
+ *            description: This is holds the comment message
  *          Email:
  *            type: string
  *            description: This is holds user email
@@ -56,13 +56,13 @@ router.use(bodyParser.json());
  *    parameters:
  *      - name: auth-token
  *        in: header
- *        description: To return a spacific limits of messages sent
+ *        description: To return a spacific limits of blogs
  *        required: false
  *        schema:
  *          type: string
- *      - name: max
+ *      - name: limit
  *        in: query
- *        description: max of message to return
+ *        description: Article id to retrive comment for
  *        required: false
  *        schema: 
  *          type: string
@@ -91,7 +91,50 @@ router.use(bodyParser.json());
  *              schema:
  *                $ref: "#/components/schemas/error"  
  *           
- *  
+ * /api/Contact/send:
+ *  post:
+ *    summary: Creating comment
+ *    tags:
+ *    - "Contact"
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *            schema:
+ *              required: true
+ *              properties:
+ *                 Email:
+ *                    type: string
+ *                    description: This takes email
+ *                 Subject:
+ *                    type: string
+ *                    description: This holds subject  
+ *                 Message:
+ *                    type: string
+ *                    description: This holds comment message
+ *    responses:
+ *        200: 
+ *          description: Contanct sent response
+ *          content:
+ *            application/json:
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                    data:
+ *                      type: array
+ *                      items: 
+ *                        $ref: "#/components/schemas/Contact"
+ *        400:
+ *          description: Invalid inputs
+ *          content:
+ *              application/json:
+ *                schema: 
+ *                  $ref: "#/components/schemas/error"
+ *        500:
+ *          description: Server error
+ *          content:
+ *              application/json:
+ *                schema: 
+ *                  $ref: "#/components/schemas/error"   
  * */ 
 
 router.post("/contact",createContact);
