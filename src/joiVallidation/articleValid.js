@@ -4,25 +4,22 @@ const articleValidation = (body)=> {
    const articleSchema = Joi.object({
 
     Title:Joi.string()
-    .alphanum()
     .min(8)
-    .max(10)
+    .max(50)
     .required(),
     
     Topic:Joi.string()
-    .alphanum()
     .min(5)
     .max(25)
     .required(),
 
     articleContents:Joi.string()
-    .alphanum()
     .min(30)
     .max(100)
     .required(),
    })
 
-   var Valid = articleSchema.validate(body);
+   var Valid = articleSchema.validate(body, {abortEarly: false});
    return Valid;
    
 }

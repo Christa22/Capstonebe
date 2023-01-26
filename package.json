@@ -4,9 +4,10 @@
   "description": "My brand project",
   "main": "index.js",
   "scripts": {
+    "build": "babel src -d dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "babel-node index.js",
-    "compile": "babel-node index.js",
+    "compile": "babel-node src/index.js",
     "dev": "nodemon --exec npm run compile"
   },
   "repository": {
@@ -16,19 +17,25 @@
   "author": "Christa",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-node": "^0.0.1-security",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.3",
-    "mongoose-type-url": "^2.1.0"
+    "mongoose-type-url": "^2.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.0"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

@@ -6,10 +6,29 @@ import ArticleRoute from "./routes/ArticleRoute";
 import loginRoute from "./routes/loginRoute.js";
 import SignupRoute from "./routes/SignupRoute.js";
 import CommentsRoute from "./routes/CommentsRoute.js";
-
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUI from 'swagger-ui-express';
+import dotenv, { config } from 'dotenv';
+ dotenv.config()
 const app = express();
 app.use(cors());
 const PORT = 5500;
+const options = {
+    definition:{
+        openapi:"3.0.0",
+        info:{
+            title:"capstone",
+            version: "1.0.1"
+        },
+        server:[{
+            url: `http://localhost:${PORT}`,
+        }],
+    },
+    apis:["./routes/*.js"]
+}
+
+const specs = swaggerJSDoc(options);
+app.use("/api/doc", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use("/api",contactRoute);
 app.use("/api",ArticleRoute);
@@ -22,9 +41,9 @@ app.use("/", (req, res) =>{
 })
 
 const databaseConnection = () =>{
-    const dataBase = "mongodb+srv://Christa:Benigne99@cluster0.zf5qla4.mongodb.net/?retryWrites=true&w=majority";
+
     try{
-        mongoose.connect(dataBase,{
+        mongoose.connect(process.env.DATABASE,{
             useUnifiedTopology:true,
             useNewUrlParser: true,
         
