@@ -8,7 +8,8 @@ import SignupRoute from "./routes/SignupRoute.js";
 import CommentsRoute from "./routes/CommentsRoute.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
-
+import dotenv, { config } from 'dotenv';
+ dotenv.config()
 const app = express();
 app.use(cors());
 const PORT = 5500;
@@ -40,9 +41,9 @@ app.use("/", (req, res) =>{
 })
 
 const databaseConnection = () =>{
-    const dataBase = "mongodb+srv://Christa:Benigne99@cluster0.zf5qla4.mongodb.net/?retryWrites=true&w=majority";
+
     try{
-        mongoose.connect(dataBase,{
+        mongoose.connect(process.env.DATABASE,{
             useUnifiedTopology:true,
             useNewUrlParser: true,
         
