@@ -9,6 +9,7 @@ import CommentsRoute from "./routes/CommentsRoute.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
 import dotenv, { config } from 'dotenv';
+
  dotenv.config()
 const app = express();
 app.use(cors());
@@ -24,7 +25,7 @@ const options = {
             url: `http://localhost:${PORT}`,
         }],
     },
-    apis:["./routes/*.js"]
+    apis:["./src/routes/*.js"]
 }
 
 const specs = swaggerJSDoc(options);
