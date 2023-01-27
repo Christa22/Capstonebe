@@ -52,7 +52,7 @@ router.use(bodyParser.json());
  * @swagger
  * /api/Article:
  *  post:
- *    summary: Creating comment
+ *    summary: Creating Article
  *    tags:
  *    - "Articles"
  *    parameters:
@@ -79,7 +79,7 @@ router.use(bodyParser.json());
  *                    description: This holds the whole body of our article
  *    responses:
  *        200: 
- *          description: Contanct sent response
+ *          description: Article is being created successful
  *          content:
  *            application/json:
  *                schema:
@@ -170,7 +170,7 @@ router.get("/Article/:id", getArticle);
  *                    description: This holds the whole body of our article
  *    responses:
  *        200: 
- *          description: Contanct sent response
+ *          description: Her's the Article Comment
  *          content:
  *            application/json:
  *                schema:
@@ -201,17 +201,6 @@ router.get("/Article/:id", getArticle);
 
 
 router.put("/Article/:id",Userverify,putArticle);
-
-
-
-
-
-
-
-
-
-
-
 
 
 

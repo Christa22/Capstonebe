@@ -1,9 +1,9 @@
 import Article from "../models/articleModel";
- import articleValidation from "../joiVallidation/ArticleValid";
+ import articleValidation from "../joiVallidation/articleValid.js";
 const createArticle = async(req, res) =>{
     var {error} = articleValidation(req.body);
 
-    console.log("erros", error);
+    console.log("erros", articleValidation(req.body));
     if(error){
         return res.status(500).send({"message":error.details[0].message});
     }
@@ -14,8 +14,8 @@ const createArticle = async(req, res) =>{
         Topic: req.body.Topic,
         articleContents: req.body.articleContents
     })
+    console.log("gets here");
      const SavedBlog =  await blog.save();
-     
      res.send(SavedBlog);
     }
     catch(error){

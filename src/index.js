@@ -43,9 +43,15 @@ app.use("/", (req, res) =>{
 const databaseConnection = () =>{
 
     try{
+        const options = {
+            w: 'majority',
+            j: true,
+            wtimeout: 10000
+          };
         mongoose.connect(process.env.DATABASE,{
             useUnifiedTopology:true,
             useNewUrlParser: true,
+            ...options
         
         }).then(() =>{
             console.log("Database connected successfully!!");

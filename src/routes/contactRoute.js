@@ -68,7 +68,7 @@ router.use(bodyParser.json());
  *          type: string
  *    responses:
  *      200: 
- *        description: This is list users who Contacted and there messages
+ *        description: This is list of users who Contacted and there messages
  *        content:
  *          application/json:
  *              schema:
