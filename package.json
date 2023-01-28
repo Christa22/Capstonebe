@@ -21,9 +21,11 @@
     "@babel/core": "^7.20.12",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
+    "assert": "^2.0.0",
     "babel-core": "^6.26.3",
     "babel-node": "^0.0.1-security",
     "bcrypt": "^5.1.0",
+    "chai": "^4.3.7",
     "cors": "^2.8.5",
     "coverage": "^0.4.1",
     "coveralls": "^3.1.1",
@@ -35,6 +37,8 @@
     "mongoose": "^6.8.3",
     "mongoose-type-url": "^2.1.0",
     "nyc": "^15.1.0",
+    "sinon": "^15.0.1",
+    "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.0"
   },
@@ -42,6 +46,7 @@
     "node": "14.x"
   },
   "devDependencies": {
+    "chai-http": "^4.3.0",
     "nodemon": "^2.0.20"
   }
 }
