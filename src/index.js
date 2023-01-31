@@ -57,7 +57,7 @@ const databaseConnection = () =>{
           } else {
             database = process.env.DATABASE;
           }
-          console.log('display!!!!!!!!!!!!!',database);
+          console.log('Display our Data and its Coverage',database);
         mongoose.connect(database,{
             useUnifiedTopology:true,
             useNewUrlParser: true,
