@@ -2,10 +2,9 @@ import Article from "../models/articleModel";
  import articleValidation from "../joiVallidation/articleValid.js";
 const createArticle = async(req, res) =>{
     var {error} = articleValidation(req.body);
-
     console.log("erros", articleValidation(req.body));
     if(error){
-        return res.status(500).send({"message":error.details[0].message});
+        return res.status(401).send({"Unauthorized":error.details[0].message});
     }
     try{
   
@@ -16,7 +15,7 @@ const createArticle = async(req, res) =>{
     })
     console.log("gets here");
      const SavedBlog =  await blog.save();
-     res.send(SavedBlog);
+     return res.status(200).send(SavedBlog);
     }
     catch(error){
         // you can add a console of the error (to debug later)
@@ -30,8 +29,10 @@ const getAllArticles =  async(req, res) =>{
 
    var fetchArticle = await Article.find({}).limit(max);
 
-   res.send(fetchArticle);
-    }catch(error){
+   return res.status(200).json({'Data':fetchArticle});
+   
+    }
+    catch(error){
         res.send({"message":"error happened! sorry"});
     }
 }

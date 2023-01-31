@@ -1,8 +1,14 @@
 import Signup from "../models/SignupModel"
 import bcrypt, { hash } from "bcrypt";
 import  Jwt from "jsonwebtoken";
-
+import loginValidation from "../joiVallidation/loginValid";
 const createLogin = async(req, res) =>{
+
+  var {error} =loginValidation(req.body);
+  console.log("erros",loginValidation(req.body));
+  if(error){
+      return res.status(401).send({"Unauthorized":error.details[0].message});
+  }
     try{
 
       var email = req.body.Email;

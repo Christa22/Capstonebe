@@ -11,15 +11,15 @@ try{
         if(Verified.Email){
             next();
         }else{
-            res.status(401).send({"message":"Access denied"});
+            res.status(401).send({"Unauthorized":"Access denied"});
         }
         
     }else{
-        res.status(401).send({"message":"Access denied!!"});
+        res.status(401).send({"Unauthorized":"Access denied!!"});
     }
 
 }catch(error){
- res.status(500).send({"message":"error happened"});
+ res.status(500).send({"Internal Server Error":"error happened"});
 }
 
 }

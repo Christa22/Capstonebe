@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d dist",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 5000 --coverage --all --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "YOURPACKAGE_COVERAGE=1 ./node_modules/.bin/mocha test -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js",
     "start": "node dist/index.js",
     "compile": "babel-node src/index.js",
     "dev": "nodemon --exec npm run compile"
@@ -21,6 +23,7 @@
     "@babel/core": "^7.20.12",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
+    "@babel/register": "^7.18.9",
     "assert": "^2.0.0",
     "babel-core": "^6.26.3",
     "babel-node": "^0.0.1-security",
@@ -47,6 +50,7 @@
   },
   "devDependencies": {
     "chai-http": "^4.3.0",
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.20"
   }
 }
