@@ -49,7 +49,16 @@ const databaseConnection = () =>{
             j: true,
             wtimeout: 10000
           };
-        mongoose.connect(process.env.DATABASE,{
+
+          var database=''
+
+          if (process.env.NODE_ENV === 'test') {
+            database = process.env.TESTDATABASE;
+          } else {
+            database = process.env.DATABASE;
+          }
+          console.log('display!!!!!!!!!!!!!',database);
+        mongoose.connect(database,{
             useUnifiedTopology:true,
             useNewUrlParser: true,
             ...options
@@ -72,3 +81,4 @@ app.listen(PORT, ()=>{
     databaseConnection();
     
 });
+export default app;

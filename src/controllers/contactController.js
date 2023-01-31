@@ -1,5 +1,11 @@
 import Contact from "../models/contactModel";
+import contactValidation  from "../joiVallidation/contactValid.js";
 const createContact = async(req, res) =>{
+    var {error} =contactValidation(req.body);
+    console.log("erros", contactValidation(req.body));
+    if(error){
+        return res.status(401).send({"Unauthorized":error.details[0].message});
+    }
     try{
         const message = new Contact({
             Email:req.body.Email,

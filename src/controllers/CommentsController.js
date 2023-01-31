@@ -1,11 +1,14 @@
 import Comment from "../models/CommentsModel"
+import commentValidation from "../joiVallidation/commentValid.js";
 const createComments = async(req, res) =>{
-
+    var {error} = commentValidation(req.body);
+    console.log("erros", commentValidation(req.body));
+    if(error){
+        return res.status(401).send({"Unauthorized":error.details[0].message});
+    }
     try{
     
     const Comments = new Comment({
-
-          
           name :req.body.name,
           articleId:req.query.blogId,
           comment:req.body.comment
