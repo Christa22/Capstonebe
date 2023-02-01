@@ -4,7 +4,7 @@ const createArticle = async(req, res) =>{
     var {error} = articleValidation(req.body);
     console.log("erros", articleValidation(req.body));
     if(error){
-        return res.status(401).send({"Unauthorized":error.details[0].message});
+        return res.status(400).send({"Bad Request":error.details[0].message});
     }
     try{
   
@@ -13,7 +13,7 @@ const createArticle = async(req, res) =>{
         Topic: req.body.Topic,
         articleContents: req.body.articleContents
     })
-    console.log("gets here");
+
      const SavedBlog =  await blog.save();
      return res.status(200).send(SavedBlog);
     }
@@ -43,7 +43,7 @@ const getArticle =  async(req, res) =>{
     var id = req.params.id
         var getSingleArticle = await Article.find({_id:id});
 
-        res.send(getSingleArticle);
+        res.send({'data':getSingleArticle});
 
     }catch(error){
         res.send({"message":"error happened! sorry"});
