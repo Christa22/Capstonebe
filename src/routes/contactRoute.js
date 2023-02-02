@@ -139,6 +139,31 @@ router.use(bodyParser.json());
 
 router.post("/contact",createContact);
 router.get("/contact",Userverify, getContacts);
+
+/**
+ * @swagger
+ * /api/Article/{id}:
+ *  get:
+ *    summary: Return single Article on the list by providing its Article id that have been auto-generated!!
+ *    tags:
+ *    - "Articles"
+ *    parameters:
+ *      - name: id
+ *        in: path
+ *        description: To return a specific Article in the list
+ *        required: true
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200: 
+ *        description: Here's our Article 
+ *        content:
+ *          application/json:
+ *              schema:
+ *                 type: array
+ *                 items:
+ *                   $ref: "#/components/schemas/Articles" 
+ * */
 router.get("/contact/:id",Userverify, getsingleContact);
 
 export default router;
