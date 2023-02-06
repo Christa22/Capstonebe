@@ -1,6 +1,7 @@
 import { doesNotMatch } from "assert";
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
+const request = require('supertest');
 import app from "../src/index.js";
 
 chai.use(chaiHttp);
@@ -70,60 +71,45 @@ describe('Create Article Endpoint', () => {
 });
 
 
-/*Update the Article
-describe('Update the Article', () => {
-  it('should update an article', (done) => {
-    const id = '63ca939f68c1f2d2455eb6e8';
+// Update the Article
+describe('PUT /articles/:id', () => {
+  it('should update the article with given id', (done) => {
     const updatedArticle = {
-      Title: 'Mum, I made it!!',
-      Topic: 'Poetry',
-      articleContents: 'New article contents'
+      Title: 'Updated Title',
+      Topic: 'Updated Topic',
+      articleContents: 'Updated article contents'
     };
-
-    chai.request(app)
-      .put(`api/Article/63ca939f68c1f2d2455eb6e8`)
+  
+    request(app)
+      .put('api/Article/:id')
       .send(updatedArticle)
+      .expect(200)
       .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res).to.have.status(200);
-        expect(res.body).to.have.property('message').that.equals('Data has been Updated!!');
+        if (err) return done(err);
+  
+        assert.equal(res.body.message, 'Data has been Updated!!');
         done();
       });
   });
-});*/
-/*Delete 
-
-describe('Delete Article', () => {
-  it('should delete an article', (done) => {
-    chai.request(app)
-      .delete('/api/Article/:63d403c7fb3393f2fc33d223')
-      .end((err, res) => {
-        if (err) { // Added error handling
-          return done(err);
-        }
-
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('The Article has been deleted!');
-        done();
-      });
-  });
-});*/
-
-
-
-//Get signle comment
-
-describe('Testing Get single comment endpoint', () => {
-    it('it should get single comment', (done) => {
-        setTimeout(done,500)
-      chai.request(app)
-        .get('/api/Comment/:63ca939f68c1f2d2455eb6e8')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.an('object');
-          res.body.should.have.property('comment');
-          done();
-        });
-    });
 });
+
+
+// Delete Article
+describe('Delete Article',()=> {
+  it('should delete an existing Article', (done) => {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImlzaGltd2VAZ21haWwuY29tIiwiaWQiOiI2M2NhOTUyZjY4YzFmMmQyNDU1ZWI2ZjQiLCJOYW1lIjoiQ2hyaXN0YSBiZWxsYSIsImlhdCI6MTY3NDIyMDg4M30.0jcTbhjq9IWFjLSDsU9PO3nalTan0t2lBMMDzg9G04k";
+    return request(app)
+        .delete(`/api/Article/:id`)
+        .set({ 'auth-token': token, Accept: 'application/json' })         
+        .expect(200)
+        .then((res) => {
+            expect(res.body).toEqual(expect.objectContaining({
+                "message" : expect.any(String)
+            }))
+        });
+})
+})
+
+// create comment
+
+

@@ -1,3 +1,4 @@
+import { string } from "joi";
 import mongoose from "mongoose";
 import "mongoose-type-url";
 
@@ -11,11 +12,11 @@ const articleSchema = mongoose.Schema({
     type: String,
     required: [true,'Provide a Topic'],
     maxLength:25
-  },/*
-  Image: {
-    type:mongoose.SchemaTypes.Url,
+  },
+  image: {
+    type:String,
     required: true,
-  },*/
+  },
  articleContents: {
     type: String,
     required: [true,'Please Provide The Content'],

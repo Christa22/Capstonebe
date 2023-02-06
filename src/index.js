@@ -13,7 +13,7 @@ import dotenv, { config } from 'dotenv';
  dotenv.config()
 const app = express();
 app.use(cors());
-const PORT = 5600;
+const PORT = 5500;
 const options = {
     definition:{
         openapi:"3.0.0",

@@ -77,6 +77,9 @@ router.use(bodyParser.json());
  *                 articleContents:
  *                    type: string
  *                    description: This holds the whole body of our article
+ *                 image:
+ *                    type:string
+ *                     description:This holds Article picture 
  *    responses:
  *        200: 
  *          description: Article is being created successful

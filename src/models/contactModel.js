@@ -5,7 +5,7 @@ const contactSchema = mongoose.Schema({
   Email: {
     type: String,
     required: true,
-    maxLength: 255,
+    maxLength: 100,
   },
  Subject: {
     type: String,

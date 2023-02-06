@@ -7,12 +7,6 @@ const commentValidation = (body)=> {
     .min(4)
     .max(50)
     .required(),
-    
-    articleId:Joi.string()
-    .min(5)
-    .max(30)
-    .required(),
-
     comment:Joi.string()
     .min(30)
     .max(100)

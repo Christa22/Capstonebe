@@ -4,7 +4,7 @@ const createComments = async(req, res) =>{
     var {error} = commentValidation(req.body);
     console.log("erros", commentValidation(req.body));
     if(error){
-        return res.status(401).send({"Unauthorized":error.details[0].message});
+        return res.status(400).send({"Bad request":error.details[0].message});
     }
     try{
     
@@ -15,7 +15,7 @@ const createComments = async(req, res) =>{
       })
        const SavedComment =  await Comments.save();
        
-       res.send(SavedComment);
+   return res.status(200).json({"data":SavedComment});
       }
       catch(error){
           // you can add a console of the error (to debug later)

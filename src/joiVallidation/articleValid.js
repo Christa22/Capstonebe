@@ -17,7 +17,12 @@ const articleValidation = (body)=> {
     .min(30)
     .max(100)
     .required(),
-   })
+
+   image:Joi.string()
+   .min(30)
+   .max(100)
+   .required(),
+  })
 
    var Valid = articleSchema.validate(body, {abortEarly: false});
    return Valid;
