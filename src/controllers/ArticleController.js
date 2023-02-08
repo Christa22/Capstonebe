@@ -11,7 +11,8 @@ const createArticle = async(req, res) =>{
   const blog = new Article({
         Title :req.body.Title,
         Topic: req.body.Topic,
-        articleContents: req.body.articleContents
+        articleContents: req.body.articleContents,
+        image:req.body.image
     })
 
      const SavedBlog =  await blog.save();

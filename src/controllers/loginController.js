@@ -33,13 +33,13 @@ const createLogin = async(req, res) =>{
 
          }
          else{
-           res.send({"message":"Please Provide the right Password"});
+       res.status(401).send({"error":"Please Provide the right information"});
          }
          
        
     }catch(error){
         // you can add a console of the error (to debug later)
-        res.status(500).send({"message":error});
+        res.status(500).send({"error":error});
     }
 }
 

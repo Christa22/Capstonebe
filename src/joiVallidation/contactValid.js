@@ -14,8 +14,8 @@ const contactValidation = (body)=> {
     .required(),
 
     Message:Joi.string()
-    .min(30)
-    .max(100)
+    .min(10)
+    .max(200)
     .required(),
    })
 
