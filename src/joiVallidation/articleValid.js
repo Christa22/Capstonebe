@@ -20,7 +20,7 @@ const articleValidation = (body)=> {
 
    image:Joi.string()
    .min(30)
-   .max(100)
+   .max(300)
    .required(),
   })
 
