@@ -50,6 +50,7 @@ const getArticle =  async(req, res) =>{
         res.send({"message":"error happened! sorry"});
     }
 }
+// Update
 
 const putArticle = async(req,res) =>{
     try{
@@ -68,6 +69,8 @@ const putArticle = async(req,res) =>{
     }
 }
 
+//delete
+
 const deleteArticle = async(req,res) =>{
     try{
 
@@ -75,15 +78,13 @@ const deleteArticle = async(req,res) =>{
         var deleteArticle = await Article.deleteOne({_id:id});
 
         if(deleteArticle.deletedCount == 1){
-          return res.send({"message":"The Article has been deleted!"});
+          return res.status(200).send({"message":"The Article has been deleted!"});
         }else{
-            return res.send({"message":"The Article does not exit!"})
-        }
+            return res.status(404).send({"error":"The Article does not exit!"})
+        } 
 
-
-        res.send(deleteArticle);
     }catch(error){
-        res.send({"message":"error happened! sorry"});
+       return res.status(500).send({"Error":"error happened! sorry"});
     }
 }
 export {createArticle, getAllArticles,getArticle,putArticle,deleteArticle};

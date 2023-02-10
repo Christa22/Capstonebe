@@ -110,6 +110,27 @@ describe('Delete Article',()=> {
 })
 })
 
-// create comment
+// get comment
+
+describe('GET Comment ', () => {
+  it('should return a list of comments for a specific article', (done) => {
+    request(app)
+      .get(`/api/Comment/:id`)
+      .expect(200)
+      .expect((res) => {
+        // Make sure that the response is an array of comments
+        assert.isArray(res.body);
+  
+        // Make sure that each comment has the correct properties
+        res.body.forEach((comment) => {
+          assert.property(comment, 'name');
+          assert.property(comment, 'articleId');
+          assert.property(comment, 'comment');
+        });
+      })
+      .end(done);
+  }, 10000);
+});
+
 
 

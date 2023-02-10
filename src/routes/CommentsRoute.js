@@ -1,12 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-
-
 import {createComments, getComment } from "../controllers/CommentsController";
 
 const router = express.Router();
 router.use(bodyParser.json()); 
+
+
 
 
 /**
@@ -25,7 +25,7 @@ router.use(bodyParser.json());
  *       required:
  *         - "name"
  *         - "articleId"
- *         - "Comment"
+ *         - "comment"
  *       properties:  
  *          name:
  *            type: string
@@ -33,7 +33,7 @@ router.use(bodyParser.json());
  *          articleId:
  *            type: string
  *            description:  Article id
- *          Comment:
+ *          comment:
  *            type: string
  *            description: It'll be containing User Comment on Article
  *    error: 
@@ -41,9 +41,41 @@ router.use(bodyParser.json());
  *      properties:
  *        error:
  *          type: string
- * */ 
+ * */
 
+/**
+ * @swagger
+ * /api/Comment/{id}:
+ *  get:
+ *    summary: Return Comment of a given article!!
+ *    tags:
+ *    - "Comments"
+ *    parameters:
+ *      - name: id
+ *        in: path
+ *        description: To return a specific Article in the list
+ *        required: true
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200: 
+ *        description: Here's our Article 
+ *        content:
+ *          application/json:
+ *              schema:
+ *                 type: array
+ *                 items:
+ *                   $ref: "#/components/schemas/Comment" 
+ *
+*        500:
+*          description: Server error
+*          content:
+*              application/json:
+*                schema: 
+*                  $ref: "#/components/schemas/error"   
+* */
 
+router.get("/Comment/:articleid", getComment);
 /**
  * @swagger
  * /api/Comment:
@@ -58,11 +90,6 @@ router.use(bodyParser.json());
  *        required: true
  *        schema: 
  *          type: string
- *      - name: id
- *        in: path
- *        description : articleId required
- *        required: true
- *        scheam: string
  *    requestBody:
  *      content:
  *        application/json:
@@ -71,13 +98,10 @@ router.use(bodyParser.json());
  *              properties:
  *                 name:
  *                    type: string
- *                    description: This User Name
- *                articleId:
- *                    articleId: string
- *                    description: This holds Article Id  
- *                 Comments:
+ *                    description: This will hold Name
+ *                 comment:
  *                    type: string
- *                    description: This holds User Comment
+ *                    description: This will hold Article comment  
  *    responses:
  *        200: 
  *          description: Comment is being created successful
@@ -89,24 +113,21 @@ router.use(bodyParser.json());
  *                    data:
  *                      type: array
  *                      items: 
- *                        $ref: "#/components/schemas/Comments"
+ *                        $ref: "#/components/schemas/Articles"
  *        400:
- *          description:  Bad Request or Invalid input
+ *          description: Invalid inputs
  *          content:
  *              application/json:
  *                schema: 
  *                  $ref: "#/components/schemas/error"
  *        500:
- *          description: Internal Server Error
+ *          description: Server error
  *          content:
  *              application/json:
  *                schema: 
  *                  $ref: "#/components/schemas/error"   
  * */
+
 router.post("/Comment",createComments);
-
-router.get("/Comment/:articleid", getComment);
-
-
 
 export default router;
