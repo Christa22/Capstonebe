@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d dist",
-    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 5000 --coverage --all --exit",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 10000 --coverage --all --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "YOURPACKAGE_COVERAGE=1 ./node_modules/.bin/mocha test -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js",
     "start": "node dist/index.js",

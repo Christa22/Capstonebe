@@ -47,7 +47,7 @@ const databaseConnection = () =>{
         const options = {
             w: 'majority',
             j: true,
-            wtimeout: 1000
+            wtimeout: 10000
           };
 
           var database=''

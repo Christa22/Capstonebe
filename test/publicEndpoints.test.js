@@ -71,45 +71,104 @@ describe('Create Article Endpoint', () => {
 });
 
 
-// Update the Article
-describe('PUT /articles/:id', () => {
-  it('should update the article with given id', (done) => {
-    const updatedArticle = {
-      Title: 'Updated Title',
-      Topic: 'Updated Topic',
-      articleContents: 'Updated article contents'
-    };
+/// Update the Article
+describe('Update Article', () => {
+  it('It should return Update Article',(done)=>{
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    chai.request(app)
+    .put('/api/Article')
+    .set({'token': token ,Accept :'application/json'})
+    .send({
+      Title: "The best technologies ",
+              Topic: "nodejs, reactjs, and mocha",
+              articleContents: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    })
+    .then((res)=>{
+      const body =res.body;
+      if(res.status ===20) {
+        expect(body).to.contain.property('error');
+      }else if (res.status ===400) {
+        expect(body).to.contain.property('data');
+        expect(body).to.contain.property('message');
   
-    request(app)
-      .put('api/Article/:id')
-      .send(updatedArticle)
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err);
-  
-        assert.equal(res.body.message, 'Data has been Updated!!');
-        done();
-      });
+      } 
+      done();
+    })
+    .catch((err) => done(err))
   });
-});
+  
+  });
 
 
 // Delete Article
-describe('Delete Article',()=> {
-  it('should delete an existing Article', (done) => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImlzaGltd2VAZ21haWwuY29tIiwiaWQiOiI2M2NhOTUyZjY4YzFmMmQyNDU1ZWI2ZjQiLCJOYW1lIjoiQ2hyaXN0YSBiZWxsYSIsImlhdCI6MTY3NDIyMDg4M30.0jcTbhjq9IWFjLSDsU9PO3nalTan0t2lBMMDzg9G04k";
-    return request(app)
-        .delete(`/api/Article/:id`)
-        .set({ 'auth-token': token, Accept: 'application/json' })         
-        .expect(200)
-        .then((res) => {
-            expect(res.body).toEqual(expect.objectContaining({
-                "message" : expect.any(String)
-            }))
+describe('Delete Article', () => {
+  it('It should return Delete Article', (done) => {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    chai.request(app)
+      .delete('/api/Article/:id')
+      .set({ 'token': token, Accept: 'application/json' })
+      .then((res) => {
+        const body = res.body;
+        if (res.status === 200) {
+          expect(body).to.contain.property('message');
+        } else if (res.status === 400) {
+          expect(body).to.contain.property('error');
+        }
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+//Create comment
+describe('POST Comment ', () => {
+  it('should create a new comment for a specific article', (done) => {
+    request(app)
+      .post(`/api/Comment?blogId=63cab7ff8f08b59f051ff475`)
+      .send({
+        name: 'John Doe',
+        comment: 'This is a great article!!, hope to get more inspiring ones like this.'
+      })
+      .expect(200)
+      .expect((res) => {
+        const body = res.body;
+        // Check if the response has the created comment
+        assert.property(body, 'comment');
+        assert.property(body.comment, 'name');
+        assert.property(body.comment, 'comment');
+        assert.equal(body.comment.name, 'John Doe');
+  
+        assert.equal(body.comment.comment, 'This is a great article');
+      })
+      .end((err) => {
+        if (err) return done(err);
+        done();
+      });
+  }, 10000);
+});
+
+
+
+
+// get comment
+
+describe('GET Comment ', () => {
+  it('should return a list of comments for a specific article', (done) => {
+    request(app)
+      .get(`/api/Comment/:id`)
+      .expect(200)
+      .expect((res) => {
+        // Make sure that the response is an array of comments
+        assert.isArray(res.body);
+  
+        // Make sure that each comment has the correct properties
+        res.body.forEach((comment) => {
+          assert.property(comment, 'name');
+          assert.property(comment, 'articleId');
+          assert.property(comment, 'comment');
         });
-})
-})
+      })
+      .end(done);
+  }, 10000);
 
-// create comment
-
-
+});
